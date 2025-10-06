@@ -1,0 +1,24 @@
+<?php
+
+namespace {{ managerNamespace }};
+
+use Bunkuris\Support\AbsctractCacheKeyManager;
+use Bunkuris\Contracts\CacheKeyManagerContract;
+
+/**
+ * @phpstan-import-type TemplateArray from CacheKeyManagerContract
+ */
+class {{ managerName }}CacheKeyManager extends AbsctractCacheKeyManager
+{
+    /**
+     * Returns the available templates for this cache key manager.
+     * 
+     * @return TemplateArray
+     */
+    public static function getTemplates(): array
+    {
+        return [
+            // ..
+        ];
+    }
+}

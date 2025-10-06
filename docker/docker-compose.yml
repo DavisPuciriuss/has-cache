@@ -1,0 +1,10 @@
+services:
+    php:
+        build: .
+        image: has-cache-php
+        container_name: has-cache-php
+        volumes:
+            - '../:/app'
+        working_dir: '/app'
+        tty: true
+        stdin_open: true

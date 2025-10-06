@@ -1,0 +1,14 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+parameters:
+    level: 9
+    bootstrapFiles:
+        - phpstan_bootstrap.php
+    paths:
+        - src/
+        - tests/Support/
+    ignoreErrors:
+        -
+            identifier: missingType.iterableValue
+    tips:
+        treatPhpDocTypesAsCertain: false
