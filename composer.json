@@ -1,6 +1,7 @@
 {
 	"name": "bunkuris/has-cache",
 	"description": "HasCache trait for Laravel models with cache key managers",
+	"license": "MIT",
 	"keywords": [
 		"cache"
 	],
