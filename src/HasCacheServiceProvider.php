@@ -1,5 +1,7 @@
 <?php
 
+namespace Bunkuris;
+
 use Bunkuris\Console\CreateCacheKeyManagerCommand;
 use Bunkuris\Contracts\AsyncCacheContract;
 use Bunkuris\Support\RedisAsyncCacheService;
@@ -16,7 +18,7 @@ class HasCacheServiceProvider extends ServiceProvider
     public function register(): void
     {
         if (!defined('BUNKURIS_PATH')) {
-            define('BUNKURIS_PATH', realpath(__DIR__ . '/../'));
+            define('BUNKURIS_PATH', realpath(__DIR__ . '/../')); // @codeCoverageIgnore
         }
 
         $this->config = $this->app->make('config');

@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\File;
 
 /**
  * Create a new cache key manager.
- *
- * @codeCoverageIgnore
  */
 class CreateCacheKeyManagerCommand extends Command
 {
@@ -44,13 +42,13 @@ class CreateCacheKeyManagerCommand extends Command
         $managerName = str_replace('CacheKeyManager', '', $name);
         
         $namespace = 'App\\Support\\Cache';
-        $basePath = app_path('Support/Cache');
+        $basePath = $this->laravel->basePath('app/Support/Cache');
         
         if (!File::isDirectory($basePath)) {
             File::makeDirectory($basePath, 0755, true);
         }
         
-        $stubPath = BUNKURIS_PATH . 'stubs/CacheKeyManager.stub';
+        $stubPath = BUNKURIS_PATH . '/stubs/CacheKeyManager.stub';
         
         if (!File::exists($stubPath)) {
             $this->error("Stub file not found at: {$stubPath}");

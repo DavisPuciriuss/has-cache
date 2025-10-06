@@ -1,11 +1,17 @@
 <?php
 
 return [
-    // Configure the hours during which caching lifetime is chosen.
+    /*
+    |--------------------------------------------------------------------------
+    | Active Hours Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Define the working/active hours for your application.
+    | Cache TTLs can be different during and outside these hours.
+    |
+    */
     'active_hour' => [
-        // Start hour (inclusive) for active caching period (0-23).
-        'start' => 8,
-        // End hour (exclusive) for active caching period (0-23).
-        'end' => 20,
+        'start' => 8,   // 8 AM (8:00)
+        'end' => 20,    // 8 PM (20:00)
     ],
 ];

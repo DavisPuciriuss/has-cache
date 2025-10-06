@@ -123,7 +123,7 @@ trait HasCache
     public static function clearCacheAfterCommit(array $cacheKeys): void
     {
         /** @var array<string> $keysToDelete */
-        $keysToDelete = array_map(fn (CacheKey $key) => $key->$key, $cacheKeys);
+        $keysToDelete = array_map(fn (CacheKey $key) => $key->key, $cacheKeys);
 
         DB::afterCommit(function () use ($keysToDelete) {
             if (!static::$_hasCache_disabled) {

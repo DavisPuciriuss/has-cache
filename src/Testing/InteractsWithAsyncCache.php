@@ -3,7 +3,11 @@
 namespace Bunkuris\Testing;
 
 use Bunkuris\Contracts\AsyncCacheContract;
+use PHPUnit\Framework\Attributes\Before;
 
+/**
+ * @phpstan-ignore trait.unused (This trait is designed to be used by consumer projects)
+ */
 trait InteractsWithAsyncCache
 {
     protected function getMockAsyncCache(): MockAsyncCacheService
@@ -22,9 +26,20 @@ trait InteractsWithAsyncCache
         $this->getMockAsyncCache()->reset();
     }
 
-    public function tearDownInteractsAsyncCacheTrait(): void
+    /**
+     * This method is automatically called by PHPUnit before each test.
+     * It ensures a clean cache state for each test.
+     */
+    #[Before]
+    protected function setUpInteractsWithAsyncCache(): void
     {
-        $this->resetAsyncCache();
+        if (isset($this->app)) {
+            try {
+                $this->resetAsyncCache();
+            } catch (\Throwable $e) {
+                // 
+            }
+        }
     }
 
     protected function assertCacheKeyCount(int $expectedCount, string $message = ''): void
@@ -75,7 +90,7 @@ trait InteractsWithAsyncCache
         $found = false;
 
         foreach ($calls as $call) {
-            if ($call === $params) {
+            if (isset($call['params']) && $call['params'] === $params) {
                 $found = true;
                 break;
             }

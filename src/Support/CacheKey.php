@@ -12,12 +12,12 @@ readonly class CacheKey
 
     public Carbon $ttl;
 
-    public function __construct(string $key, Carbon|int $in_working_hours_ttl, Carbon|int|null $after_working_hours_ttl = null)
+    public function __construct(string $key, Carbon|int $in_active_hours_ttl, Carbon|int|null $after_active_hours_ttl = null)
     {
         $this->key = $key;
 
-        if ($after_working_hours_ttl === null) {
-            $this->ttl = $this->convertToCarbon($in_working_hours_ttl);
+        if ($after_active_hours_ttl === null) {
+            $this->ttl = $this->convertToCarbon($in_active_hours_ttl);
 
             return;
         }
@@ -29,9 +29,9 @@ readonly class CacheKey
         $active_end_hour = config('has-cache.active_hour.end', 20);
 
         if (Carbon::now()->isBetween(Carbon::createFromTime(hour: $active_start_hour), Carbon::createFromTime(hour: $active_end_hour))) {
-            $this->ttl = $this->convertToCarbon($in_working_hours_ttl);
+            $this->ttl = $this->convertToCarbon($in_active_hours_ttl);
         } else {
-            $this->ttl = $this->convertToCarbon($after_working_hours_ttl);
+            $this->ttl = $this->convertToCarbon($after_active_hours_ttl);
         }
     }
 

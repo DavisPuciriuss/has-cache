@@ -6,5 +6,45 @@ services:
         volumes:
             - '../:/app'
         working_dir: '/app'
+        environment:
+            DB_CONNECTION: mysql
+            DB_HOST: mysql
+            DB_PORT: 3306
+            DB_DATABASE: has_cache_testing
+            DB_USERNAME: has_cache
+            DB_PASSWORD: secret
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+        depends_on:
+            - mysql
+            - redis
+        networks:
+            - has-cache-network
         tty: true
         stdin_open: true
+
+    mysql:
+        image: mysql:8.0
+        container_name: has-cache-mysql
+        environment:
+            MYSQL_DATABASE: has_cache_testing
+            MYSQL_USER: has_cache
+            MYSQL_PASSWORD: secret
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - mysql_data:/var/lib/mysql
+        networks:
+            - has-cache-network
+
+    redis:
+        image: redis:7-alpine
+        container_name: has-cache-redis
+        networks:
+            - has-cache-network
+
+networks:
+    has-cache-network:
+        driver: bridge
+
+volumes:
+    mysql_data:
