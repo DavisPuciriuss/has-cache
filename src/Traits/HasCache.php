@@ -5,7 +5,6 @@ namespace Bunkuris\Traits;
 use Bunkuris\Support\CacheKey;
 use Bunkuris\Facades\AsyncCache;
 use DB;
-use Illuminate\Database\Eloquent\Attributes\Boot;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -27,8 +26,7 @@ trait HasCache
     /**
      * Boot the trait.
      */
-    #[Boot]
-    public static function registerCacheEvents(): void
+    public static function bootHasCache(): void
     {
         static::registerModelEvent('booted', function () {
             static::updating(function ($model) {
