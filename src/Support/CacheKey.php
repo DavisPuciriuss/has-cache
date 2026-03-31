@@ -45,6 +45,11 @@ readonly class CacheKey
         return is_int($value) ? Carbon::now()->addSeconds($value) : $value;
     }
 
+    /**
+     * @template TCacheValue
+     * @param Closure(): TCacheValue $callback
+     * @return TCacheValue
+     */
     public function remember(Closure $callback): mixed
     {
         return Cache::remember($this->key, $this->ttl, $callback);

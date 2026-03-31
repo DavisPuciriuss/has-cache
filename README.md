@@ -499,11 +499,6 @@ Run tests with coverage:
 docker exec -it has-cache-php composer test-coverage
 ```
 
-Run tests with html coverage:
-```bash
-docker exec -it has-cache-php composer test-coverage
-```
-
 Run tests with HTML coverage:
 ```bash
 docker exec -it has-cache-php composer test-coverage-html
