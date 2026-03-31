@@ -1,6 +1,12 @@
 HasCache
 ==============
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/bunkuris/has-cache.svg)](https://packagist.org/packages/bunkuris/has-cache)
+[![Total Downloads](https://img.shields.io/packagist/dt/bunkuris/has-cache.svg)](https://packagist.org/packages/bunkuris/has-cache)
+[![PHP Version](https://img.shields.io/packagist/php-v/bunkuris/has-cache.svg)](https://packagist.org/packages/bunkuris/has-cache)
+[![Tests](https://img.shields.io/github/actions/workflow/status/DavisPuciriuss/has-cache/tests.yml?branch=master&label=tests)](https://github.com/DavisPuciriuss/has-cache/actions/workflows/tests.yml)
+[![Coverage](https://codecov.io/gh/DavisPuciriuss/has-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/DavisPuciriuss/has-cache)
+
 HasCache is a package that provides automatic cache invalidation for Laravel Eloquent models. It monitors model lifecycle events (create, update, delete) and automatically clears associated cache keys, preventing stale data without manual cache management. The package includes Redis-optimized async cache deletion, working hours-aware TTL management, and a type-safe cache key manager system.
 
 ## Features
