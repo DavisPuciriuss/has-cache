@@ -32,7 +32,6 @@ jobs:
   test:
     name: Test (PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }})
     runs-on: ubuntu-latest
-    fail-fast: false
 
     strategy:
       fail-fast: false
