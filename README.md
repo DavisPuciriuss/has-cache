@@ -163,6 +163,30 @@ class UserCacheKeyManager extends AbstractCacheKeyManager
 }
 ```
 
+#### List Cache Key Managers
+
+List all registered cache key managers:
+
+```bash
+php artisan cache:list:managers
+```
+
+Output:
+
+```
+ Name                    Path
+ UserCacheKeyManager     /your-app/app/Support/Cache/UserCacheKeyManager.php
+ OrderCacheKeyManager    /your-app/app/Support/Cache/OrderCacheKeyManager.php
+```
+
+Filter by name (case-insensitive, partial match):
+
+```bash
+php artisan cache:list:managers User
+```
+
+Scans the path configured in `has-cache.managers_path` (default: `app/Support/Cache`). Only classes implementing `CacheKeyManagerContract` are listed.
+
 #### Use the Cache Key Manager in Your Model
 
 ```php
