@@ -3,6 +3,7 @@
 namespace Bunkuris;
 
 use Bunkuris\Console\CreateCacheKeyManagerCommand;
+use Bunkuris\Console\ListCacheKeyManagersCommand;
 use Bunkuris\Contracts\AsyncCacheContract;
 use Bunkuris\Support\RedisAsyncCacheService;
 use Illuminate\Support\ServiceProvider;
@@ -35,7 +36,7 @@ class HasCacheServiceProvider extends ServiceProvider
     }
 
     /**
-     * Set up the resource publishing groups for Orion.
+     * Set up the resource publishing groups for has-cache.
      *
      * @return void
      */
@@ -43,13 +44,13 @@ class HasCacheServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                BUNKURIS_PATH . '/config' => $this->app->configPath('has-cache'),
+                BUNKURIS_PATH . '/config/has-cache.php' => $this->app->configPath('has-cache.php'),
             ], 'has-cache-config');
         }
     }
 
     /**
-     * Set up the configuration for Orion.
+     * Set up the configuration for has-cache.
      *
      * @return void
      */
@@ -59,7 +60,7 @@ class HasCacheServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the Orion Artisan commands.
+     * Register the has-cache Artisan commands.
      *
      * @return void
      */
@@ -68,6 +69,7 @@ class HasCacheServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CreateCacheKeyManagerCommand::class,
+                ListCacheKeyManagersCommand::class,
             ]);
         }
     }

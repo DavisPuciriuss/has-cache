@@ -3,7 +3,9 @@
 namespace Bunkuris\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 /**
  * Create a new cache key manager.
@@ -33,16 +35,16 @@ class CreateCacheKeyManagerCommand extends Command
     {
         $name = $this->argument('name') ?: $this->ask('What is the name of the cache key manager?');
         
-        if (empty($name) || !is_string($name)) {
+        if (empty($name) || !\is_string($name)) {
             $this->error('Name is required.');
 
-            return 1;
+            return self::FAILURE;
         }
         
-        $managerName = str_replace('CacheKeyManager', '', $name);
-        
-        $namespace = 'App\\Support\\Cache';
-        $basePath = $this->laravel->basePath('app/Support/Cache');
+        $managerName = Str::replace('CacheKeyManager', '', $name);
+        $managersPath = Config::string('has-cache.managers_path', 'app/Support/Cache');
+        $namespace = $this->getNamespaceFromPath($managersPath);
+        $basePath = $this->laravel->basePath($managersPath);
         
         if (!File::isDirectory($basePath)) {
             File::makeDirectory($basePath, 0755, true);
@@ -53,7 +55,7 @@ class CreateCacheKeyManagerCommand extends Command
         if (!File::exists($stubPath)) {
             $this->error("Stub file not found at: {$stubPath}");
 
-            return 1;
+            return self::FAILURE;
         }
         
         $stub = File::get($stubPath);
@@ -70,7 +72,7 @@ class CreateCacheKeyManagerCommand extends Command
         if (File::exists($filePath)) {
             $this->error("Cache key manager already exists: {$fileName}");
 
-            return 1;
+            return self::FAILURE;
         }
         
         File::put($filePath, $content);
@@ -78,6 +80,14 @@ class CreateCacheKeyManagerCommand extends Command
         $this->info("Cache key manager created successfully: {$fileName}");
         $this->line("Location: {$filePath}");
         
-        return 0;
+        return self::SUCCESS;
+    }
+
+    private function getNamespaceFromPath(string $path): string
+    {
+        /** @var array<string> $parts */
+        $parts = Str::of($path)->explode('/')->map(Str::studly(...))->toArray();
+
+        return implode('\\', array_map('strval', $parts));
     }
 }
