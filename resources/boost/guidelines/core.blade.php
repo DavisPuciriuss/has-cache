@@ -1,6 +1,8 @@
 ## Has Cache
 
-### When to Activate `has-cache-development`
+**Package:** `bunkuris/has-cache` — MIT License — Copyright (c) 2025 Dāvis Puciriuss
+
+### When to Activate `has-cache`
 
 Activate when implementing or using this package inside a Laravel application:
 
